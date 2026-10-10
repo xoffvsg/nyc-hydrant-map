@@ -118,10 +118,14 @@
     map.on("load", () => {
       // Add the PMTiles source. The "pmtiles://" prefix tells
       // MapLibre to use the registered protocol.
+      // "promoteId" maps each feature's "neighborhood" property to its
+      // feature-state id, which is required for setFeatureState()/the
+      // hover highlight below to target the correct polygon.
       map.addSource("hydrants", {
         type: "vector",
         url: "pmtiles://" + HYDRANT_DATA_URL,
         attribution: "NYC Open Data",
+        promoteId: "neighborhood",
       });
 
       // Add a styled fill layer on top.
@@ -149,21 +153,35 @@
         }
       });
 
-      // Optional outline for clearer polygon boundaries.
+      // Outline for polygon boundaries. Color/width switch based on the
+      // "hover" feature-state set by the mousemove handler below, so the
+      // boundary of whichever neighborhood is under the cursor stands out.
       map.addLayer({
         id: "hydrant-density-outline",
         type: "line",
         source: "hydrants",
         "source-layer": "neighborhood_density",
         paint: {
-          "line-color": "#ffffff",
-          "line-width": 0.5
+          "line-color": [
+            "case",
+            ["boolean", ["feature-state", "hover"], false],
+            "#222222",
+            "#ffffff"
+          ],
+          "line-width": [
+            "case",
+            ["boolean", ["feature-state", "hover"], false],
+            2.5,
+            0.5
+          ]
         }
       });
 
       // =============================================================
       // STEP 4: Hover and click interactions.
       // mouseenter / mouseleave change the cursor.
+      // mousemove / mouseleave also toggle the "hover" feature-state,
+      // which drives the outline highlight styled above.
       // click pops up a feature card.
       // =============================================================
       map.on("mouseenter", "hydrant-density-fill", () => {
@@ -171,6 +189,39 @@
       });
       map.on("mouseleave", "hydrant-density-fill", () => {
         map.getCanvas().style.cursor = "";
+      });
+
+      // Tracks which neighborhood (by promoteId) is currently highlighted,
+      // so it can be cleared before highlighting a new one.
+      let hoveredNeighborhoodId = null;
+
+      map.on("mousemove", "hydrant-density-fill", (e) => {
+        if (e.features.length === 0) return;
+
+        const newId = e.features[0].id;
+        if (newId === hoveredNeighborhoodId) return;
+
+        if (hoveredNeighborhoodId !== null) {
+          map.setFeatureState(
+            { source: "hydrants", sourceLayer: "neighborhood_density", id: hoveredNeighborhoodId },
+            { hover: false }
+          );
+        }
+        hoveredNeighborhoodId = newId;
+        map.setFeatureState(
+          { source: "hydrants", sourceLayer: "neighborhood_density", id: hoveredNeighborhoodId },
+          { hover: true }
+        );
+      });
+
+      map.on("mouseleave", "hydrant-density-fill", () => {
+        if (hoveredNeighborhoodId !== null) {
+          map.setFeatureState(
+            { source: "hydrants", sourceLayer: "neighborhood_density", id: hoveredNeighborhoodId },
+            { hover: false }
+          );
+        }
+        hoveredNeighborhoodId = null;
       });
 
       map.on("click", "hydrant-density-fill", (e) => {
