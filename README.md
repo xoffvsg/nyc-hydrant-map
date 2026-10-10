@@ -25,11 +25,11 @@ Three concepts hold the whole library together:
 
 ## What I learned
 
-- Using Geopanda to convert a `.parquet` file into a `.geojson` file when the version of `ogr2ogr` in the environment doesn't have the driver for .parquet.
-- Adjusting the flags in `tippecanoe` to generate the .pmtiles file meeting the requirements.
-- Delivering the pmtiles via a robust CDN supporting HTTP range requests.
-- Using `Claude Code` to tweak the features and visual aspect of the map.
-- Publish a "dynamic" map from a "static" webpage posted on github.
+- To use Geopanda to convert a `.parquet` file into a `.geojson` file when the version of `ogr2ogr` in the environment doesn't have the driver for .parquet.
+- To adjust the flags in `tippecanoe` to generate the .pmtiles file meeting the requirements.
+- To deliver the pmtiles via a robust CDN supporting HTTP range requests.
+- To leverage `Claude Code` to tweak the features and visual aspect of the map.
+- To publish a "dynamic" map from a "static" webpage posted on github.
 
 
 
