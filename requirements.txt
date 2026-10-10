@@ -1,0 +1,26 @@
+# Consolidated requirements
+# Install with: pip install -r requirements.txt
+
+# --- Core geospatial ---
+geopandas>=1.0
+shapely>=2.0
+pyproj>=3.6
+
+# --- Interactive mapping (required for GeoDataFrame.explore()) ---
+folium>=0.12
+branca>=0.6
+mapclassify>=2.5
+matplotlib>=3.8
+
+# --- Database / SQL integration ---
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+duckdb>=1.0
+pyarrow>=14.0
+
+# --- Notebook environment ---
+jupyterlab>=4.0
+ipykernel>=6.0
+
+#--- Python ---
+python-dotenv>=1.0
