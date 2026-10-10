@@ -34,3 +34,6 @@ map.html
 
 # PMTiles files: large, regenerated. Don't commit.
 *.pmtiles
+
+# Example snippets: local reference only, not part of the published site.
+examples/
