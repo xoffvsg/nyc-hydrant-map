@@ -12,6 +12,7 @@ The **`neighborhood_density.pmtiles`** file is uploaded to github and the URL to
 - **`index.html`.** A complete working web map with Choropleth fill, click popups, legend, mobile-responsive layout, available to the public on https://xoffvsg.github.io/nyc-hydrant-map/
 - **No build step.** All dependencies load from CDN. Open `index.html` in a browser, or go to the website, and it works.
 
+<img width="1600" alt="Webpage_landing" src="https://github.com/xoffvsg/nyc-hydrant-map/blob/main/MapScreenshot.JPG">
 
 ## The mental model
 
