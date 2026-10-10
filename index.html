@@ -109,7 +109,7 @@
     // STEP 3: When the basemap finishes loading, add your data.
     // Replace HYDRANT_DATA_URL with your own .pmtiles URL.
     // =============================================================
-    const HYDRANT_DATA_URL = "https://your-host.example.com/hydrant_density.pmtiles";
+    const HYDRANT_DATA_URL = "https://cdn.jsdelivr.net/gh/xoffvsg/nyc-hydrant-map@main/neighborhood_density.pmtiles";
 
     map.on("load", () => {
       // Add the PMTiles source. The "pmtiles://" prefix tells
@@ -127,7 +127,7 @@
         id: "hydrant-density-fill",
         type: "fill",
         source: "hydrants",
-        "source-layer": "hydrant_density",
+        "source-layer": "neighborhood_density",
         paint: {
           // Graduated color choropleth using a step expression.
           // Same breaks as the legend above.
@@ -150,7 +150,7 @@
         id: "hydrant-density-outline",
         type: "line",
         source: "hydrants",
-        "source-layer": "hydrant_density",
+        "source-layer": "neighborhood_density",
         paint: {
           "line-color": "#ffffff",
           "line-width": 0.5
