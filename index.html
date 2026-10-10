@@ -108,6 +108,10 @@
     // =============================================================
     // STEP 3: When the basemap finishes loading, add your data.
     // Replace HYDRANT_DATA_URL with your own .pmtiles URL.
+    // PMTiles relies on HTTP range requests to fetch only the needed tiles.  
+    // raw.githubusercontent.com does support range requests,
+    // but it's not a CDN tuned for this and can be flaky/slow for repeated range reads on larger files.
+    // A more reliable free alternative for binary assets like this is jsDelivr's GitHub CDN mirror.
     // =============================================================
     const HYDRANT_DATA_URL = "https://cdn.jsdelivr.net/gh/xoffvsg/nyc-hydrant-map@main/neighborhood_density.pmtiles";
 
